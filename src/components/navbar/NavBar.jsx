@@ -56,14 +56,32 @@ const NavBar = () => {
           Search
         </button>
       </div>
-      <div style={{display:"flex", justifyContent:"space-around",}}>
+      <div>
         <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
+          <ul
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "20px",
+              marginLeft: "75rem",
+              marginTop: "-50px",
+              paddingBottom: "40px",
+              fontWeight: "bold",
+              fontSize: "18px",
+            }}
+          >
+            <li style={{ listStyleType: "none" }}>
+              <Link style={{ textDecoration: "none", color: "black" }} to="/">
+                Home
+              </Link>
             </li>
-            <li>
-              <Link to="/favourite">Favourite</Link>
+            <li style={{ listStyleType: "none" }}>
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                to="/favourite"
+              >
+                Favourite
+              </Link>
             </li>
           </ul>
         </nav>
