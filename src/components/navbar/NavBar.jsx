@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const [search, setSearch] = useState("");
-  const [productData, setProductData] = useState(null);
+  const [productData, setProductData] = useState([]);
 
   async function Product() {
     try {
@@ -11,7 +11,7 @@ const NavBar = () => {
         `https://forkify-api.herokuapp.com/api/v2/recipes?search=${search}`
       );
       const data = await response.json();
-      setProductData(data?.data?.recipes[0]);
+      setProductData(data?.data?.recipes || []); // Store the entire array of recipes
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -40,16 +40,16 @@ const NavBar = () => {
           {`
            input::placeholder {
            color: white;
-        
           }
         `}
         </style>
 
+        {/* Input Field */}
         <input
           style={{
             padding: "20px 250px 20px 5px",
-            position: 'relative',
-            left: "575px",
+            justifyContent: "center",
+            display: "flex",
             margin: "auto",
             borderRadius: "15px",
             border: "none",
@@ -62,36 +62,60 @@ const NavBar = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
         <button
-          onClick={() => handleSearch()}
+          onClick={handleSearch}
           style={{
-            padding: "18px 38px",
+            padding: "17px 38px",
             display: "flex",
             justifyContent: "center",
-            // margin: "auto",
-            // marginLeft: "62rem",
+            margin: "auto",
+            marginLeft: "62rem",
             borderRadius: "13px",
-            // marginTop: "-55px",
+            marginTop: "-55px",
             fontSize: "medium",
             backgroundColor: "black",
             color: "whitesmoke",
-            position:"relative",
-            left:"60rem",
-            bottom:"57px"
           }}
         >
           Search
         </button>
       </div>
 
-
-
-      {
-        
-
-
-      }
-
-
+      
+      <div style={{ display: "flex", flexWrap: "wrap", paddingTop: "20px" }}>
+        {productData.length > 0 ? (
+          productData.map((item, index) => (
+            <div
+              key={index}
+              style={{
+                width: "200px",
+                height: "auto",
+                paddingLeft: "20px",
+                paddingBottom: "20px",
+                border: "1px solid lightgray",
+                borderRadius: "5px",
+                margin: "10px",
+                
+                textWrap: "wrap"
+              }}
+            >
+              <img
+                style={{
+                  width: "150px",
+                  height: "150px",
+                  borderRadius: "5px",
+                  paddingTop: "10px"
+                }}
+                src={item.image_url}
+                alt="ProductPicuture"
+              />
+              <p>{item.publisher}</p>
+              <p>{item.title}</p>
+            </div>
+          ))
+        ) : (
+          <p>No products found</p>
+        )}
+      </div>
 
       <div>
         <nav>
@@ -100,12 +124,11 @@ const NavBar = () => {
               display: "flex",
               justifyContent: "center",
               gap: "20px",
+              marginLeft: "75rem",
+              marginTop: "-50px",
               paddingBottom: "40px",
               fontWeight: "bold",
               fontSize: "18px",
-              position: "relative",
-              left:"36rem",
-              bottom: "120px"
             }}
           >
             <li style={{ listStyleType: "none" }}>
