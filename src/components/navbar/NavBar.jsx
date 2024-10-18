@@ -1,7 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
+  const [search, setSearch] = useState("");
+  const [productData, setProductData] = useState(null);
+
+  async function Product() {
+    try {
+      const response = await fetch(
+        `https://forkify-api.herokuapp.com/api/v2/recipes?search=${search}`
+      );
+      const data = await response.json();
+      setProductData(data?.data?.recipes[0]);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleSearch = async () => {
+    await Product();
+  };
+
   return (
     <div>
       <p
@@ -28,8 +48,8 @@ const NavBar = () => {
         <input
           style={{
             padding: "20px 250px 20px 5px",
-            justifyContent: "center",
-            display: "flex",
+            position: 'relative',
+            left: "575px",
             margin: "auto",
             borderRadius: "15px",
             border: "none",
@@ -38,24 +58,41 @@ const NavBar = () => {
           }}
           type="text"
           placeholder="Enter the ItemName"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
         <button
+          onClick={() => handleSearch()}
           style={{
-            padding: "17px 38px",
+            padding: "18px 38px",
             display: "flex",
             justifyContent: "center",
-            margin: "auto",
-            marginLeft: "62rem",
+            // margin: "auto",
+            // marginLeft: "62rem",
             borderRadius: "13px",
-            marginTop: "-55px",
+            // marginTop: "-55px",
             fontSize: "medium",
             backgroundColor: "black",
             color: "whitesmoke",
+            position:"relative",
+            left:"60rem",
+            bottom:"57px"
           }}
         >
           Search
         </button>
       </div>
+
+
+
+      {
+        
+
+
+      }
+
+
+
       <div>
         <nav>
           <ul
@@ -63,11 +100,12 @@ const NavBar = () => {
               display: "flex",
               justifyContent: "center",
               gap: "20px",
-              marginLeft: "75rem",
-              marginTop: "-50px",
               paddingBottom: "40px",
               fontWeight: "bold",
               fontSize: "18px",
+              position: "relative",
+              left:"36rem",
+              bottom: "120px"
             }}
           >
             <li style={{ listStyleType: "none" }}>
