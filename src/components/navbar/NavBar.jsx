@@ -92,7 +92,7 @@ const NavBar = () => {
                 paddingLeft: "20px",
                 paddingBottom: "20px",
                 border: "1px solid lightgray",
-                borderRadius: "5px",
+                borderRadius: "10px",
                 margin: "10px",
                 
                 textWrap: "wrap"
@@ -102,14 +102,15 @@ const NavBar = () => {
                 style={{
                   width: "150px",
                   height: "150px",
-                  borderRadius: "5px",
+                  borderRadius: "10px",
                   paddingTop: "10px"
                 }}
                 src={item.image_url}
                 alt="ProductPicuture"
               />
-              <p>{item.publisher}</p>
-              <p>{item.title}</p>
+              <p style = {{fontSize:"13px", color: "blueviolet"}}>{item.publisher}</p>
+              <p style = {{fontSize:"16px",  fontWeight:"bold"}} >{item.title}</p>
+              <button style={{padding:"10px 30px", backgroundColor:"black", color:"white", borderRadius:"5px"}}>RECIPE DETAILS</button>
             </div>
           ))
         ) : (
@@ -124,11 +125,12 @@ const NavBar = () => {
               display: "flex",
               justifyContent: "center",
               gap: "20px",
-              marginLeft: "75rem",
-              marginTop: "-50px",
               paddingBottom: "40px",
               fontWeight: "bold",
               fontSize: "18px",
+              position: "absolute",
+              left: "79rem",
+              bottom: "32em"
             }}
           >
             <li style={{ listStyleType: "none" }}>
