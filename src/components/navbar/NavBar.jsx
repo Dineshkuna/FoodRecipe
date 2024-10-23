@@ -1,25 +1,42 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
+
 
 const NavBar = () => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("cashew");
   const [productData, setProductData] = useState([]);
+  const navigate = useNavigate();
 
   async function Product() {
     try {
       const response = await fetch(
         `https://forkify-api.herokuapp.com/api/v2/recipes?search=${search}`
+ 
+        
       );
+      console.log(response);
       const data = await response.json();
-      setProductData(data?.data?.recipes || []); // Store the entire array of recipes
+      setProductData(data?.data?.recipes || []);
       console.log(data);
+      
     } catch (error) {
       console.log(error);
+      
     }
+   
   }
-
+  
+  
   const handleSearch = async () => {
     await Product();
+    
+  };
+  
+  const handleRecipeDetails = (id) => {
+    navigate(`/recipe/${id}`);
+    console.log("handleRecipeDetails")
+    
+
   };
 
   return (
@@ -44,7 +61,6 @@ const NavBar = () => {
         `}
         </style>
 
-        {/* Input Field */}
         <input
           style={{
             padding: "20px 250px 20px 5px",
@@ -80,7 +96,6 @@ const NavBar = () => {
         </button>
       </div>
 
-      
       <div style={{ display: "flex", flexWrap: "wrap", paddingTop: "20px" }}>
         {productData.length > 0 ? (
           productData.map((item, index) => (
@@ -94,23 +109,42 @@ const NavBar = () => {
                 border: "1px solid lightgray",
                 borderRadius: "10px",
                 margin: "10px",
-                
-                textWrap: "wrap"
+                textWrap: "wrap",
               }}
             >
+              <Link to='/recipe/:id' >
               <img
                 style={{
                   width: "150px",
                   height: "150px",
                   borderRadius: "10px",
-                  paddingTop: "10px"
+                  paddingTop: "10px",
                 }}
                 src={item.image_url}
                 alt="ProductPicuture"
               />
-              <p style = {{fontSize:"13px", color: "blueviolet"}}>{item.publisher}</p>
-              <p style = {{fontSize:"16px",  fontWeight:"bold"}} >{item.title}</p>
-              <button style={{padding:"10px 30px", backgroundColor:"black", color:"white", borderRadius:"5px"}}>RECIPE DETAILS</button>
+              <p style={{ fontSize: "13px", color: "blueviolet" }}>
+                {item.publisher}
+              </p>
+              <p style={{ fontSize: "16px", fontWeight: "bold" }}>
+                {item.title}
+              </p>
+              <button
+                onClick={()=>handleRecipeDetails(item.id)}
+                
+                style={{
+                  padding: "10px 30px",
+                  backgroundColor: "black",
+                  color: "white",
+                  borderRadius: "5px",
+                }}
+                
+              >
+                RECIPE DETAILS{" "}
+                
+              </button>
+              </Link>
+              
             </div>
           ))
         ) : (
@@ -130,7 +164,7 @@ const NavBar = () => {
               fontSize: "18px",
               position: "absolute",
               left: "79rem",
-              bottom: "32em"
+              bottom: "32em",
             }}
           >
             <li style={{ listStyleType: "none" }}>
@@ -154,3 +188,5 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
+
