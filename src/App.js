@@ -1,28 +1,43 @@
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import Home from "./components/home/Home";
+// import Favourite from "./components/favourite/Favourite";
+// import NavBar from "./components/navbar/NavBar";
+// import OneProduct from "./components/oneProduct/OneProduct";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./components/home/Home";
-import Favourite from "./components/favourite/Favourite";
-import NavBar from "./components/navbar/NavBar";
-import SingleProduct from "./components/singleProduct/SingleProduct";
+// function App() {
+//   return (
+   
+//     <Router>
+//        <NavBar />
+//       <div className="App">
+        
+//         <Routes>
+//           <Route path="/" element={<Home />} />
+//           <Route path="/favourite" element={<Favourite />} />
+//           <Route path="/oneproduct/:id" element={<OneProduct />} />
+//         </Routes>
+//       </div>
+//     </Router>
+//   );
+// }
 
+// export default App;
+
+
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import NavBar from "./components/navbar/NavBar.jsx";
+import OneProduct from "./components/oneProduct/OneProduct.jsx";
 
 function App() {
   return (
     <Router>
-      <div className="App">
-      <NavBar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/favourite" element={<Favourite />} />
-          <Route path="/recipe/:id" element={<SingleProduct/>}/>
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<NavBar />} />
+        <Route path="/oneproduct/:id" element={<OneProduct />} />
+      </Routes>
     </Router>
   );
 }
 
 export default App;
-
-
-
 
