@@ -1,10 +1,16 @@
-import React from 'react'
+import React from 'react';
+import NavBar from '../navbar/NavBar';
+import OneProduct from '../oneProduct/OneProduct';
 
 const Favourite = () => {
-    return(
-        <div>
-            <p>Favourite</p>
+    return (
+        <div> 
+            <NavBar />
+            
+            
+            <p>hello</p>
         </div>
-    )
+    );
 }
+
 export default Favourite;
