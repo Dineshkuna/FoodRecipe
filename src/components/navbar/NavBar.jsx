@@ -18,13 +18,20 @@ const NavBar = () => {
   }
 
   const handleSearch = async () => {
-    setProductData([]);  
+    setProductData([]);
     await Product();
   };
 
   return (
     <div>
-      <p style={{ fontSize: "20px", fontWeight: "bold", padding: "20px 0px 20px 20px", marginBottom: "-50px" }}>
+      <p
+        style={{
+          fontSize: "20px",
+          fontWeight: "bold",
+          padding: "20px 0px 20px 20px",
+          marginBottom: "-50px",
+        }}
+      >
         FoodRecipe
       </p>
 
@@ -109,17 +116,28 @@ const NavBar = () => {
                   RECIPE DETAILS
                 </button>
               </Link>
-
-
             </div>
           ))
         ) : (
           null
+          // <p
+          //   style={{
+          //     fontSize: "50px",
+          //     margin:"auto",
+          //     marginTop:"30vh",
+          //     display:"flex",
+          //     justifyContent: "center",
+          //     fontWeight:"bold",
+          //     fontStyle:"italic",
+          //     color:"darkred"  
+          //   }}
+          // >
+          //   Please Enter the ItemName
+          // </p>
         )}
 
-
         <div>
-        <ul
+          <ul
             style={{
               display: "flex",
               justifyContent: "center",
@@ -148,7 +166,6 @@ const NavBar = () => {
           </ul>
         </div>
       </div>
-
     </div>
   );
 };

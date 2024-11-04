@@ -1,14 +1,11 @@
-/* eslint-disable react/jsx-no-undef */
 import React, { useEffect, useState } from "react";
-import {  useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import NavBar from "../navbar/NavBar";
-import { Link } from "react-router-dom";
-import Favourite from "../favourite/Favourite";
 
 const OneProduct = () => {
   const [product, setProduct] = useState({});
   const { id } = useParams();
-  
+  const navigate = useNavigate();
 
   useEffect(() => {
     singleItem();
@@ -27,13 +24,25 @@ const OneProduct = () => {
   }
 
   const addFavourite = () => {
-    <Favourite  />;
-    console.log("hi");
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    const isAlreadyFavorite = favorites.some(fav => fav.id === product.id);
+
+    if (!isAlreadyFavorite) {
+      favorites.push({
+        id: product.id,
+        title: product.title,
+        publisher: product.publisher,
+        image_url: product.image_url,
+      });
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+    }
+
+    // Navigate to Favourite page after adding to favorites
+    navigate("/favourite");
   };
 
   return (
     <div>
-
       <NavBar />
       <div style={{ padding: "40px 100px" }}>
         {product.image_url ? (
@@ -46,16 +55,10 @@ const OneProduct = () => {
               />
             </div>
             <div>
-              <p>
-                <b style={{ color: "blueviolet" }}>{product.publisher}</b>{" "}
-              </p>
-              <p>
-                <b style={{ fontSize: "20px" }}>{product.title}</b>
-              </p>
-              <Link to={`/favourite`}>
+              <p><b style={{ color: "blueviolet" }}>{product.publisher}</b></p>
+              <p><b style={{ fontSize: "20px" }}>{product.title}</b></p>
               <button
-                onClick={() => addFavourite()}
-                
+                onClick={addFavourite}
                 style={{
                   backgroundColor: "black",
                   padding: "10px 20px",
@@ -65,10 +68,7 @@ const OneProduct = () => {
               >
                 ADD TO FAVOURITES
               </button>
-              </Link>
-              <p>
-                <b>Ingredients:</b>
-              </p>
+              <p><b>Ingredients:</b></p>
               <ul>
                 {product.ingredients.map((ingredient, index) => (
                   <li key={index}>{ingredient.description}</li>
